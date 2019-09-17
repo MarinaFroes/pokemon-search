@@ -10,6 +10,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Image = styled.img`
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
 class PokemonSearch extends Component<User, SearchState> {
   constructor(props: User) {
     super(props);
@@ -63,7 +68,7 @@ class PokemonSearch extends Component<User, SearchState> {
     } else {
       resultMarkup = (
         <div>
-          <img src={imgUrl} alt={`Picture of ${name}`} />
+          <Image src={imgUrl} alt={`Picture of ${name}`} />
           <p>{name} has {numberOfAbilities} abilities and {baseExperience} base experience points.</p>
         </div>
       )
