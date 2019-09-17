@@ -20,10 +20,7 @@ class PokemonSearch extends Component<User, SearchState> {
     super(props);
     this.state = {
       error: false,
-      name: '',
-      numberOfAbilities: 0,
-      baseExperience: 0,
-      imgUrl: ''
+      pokemon: null
     }
     this.pokemonRef = React.createRef();
   
@@ -36,7 +33,7 @@ class PokemonSearch extends Component<User, SearchState> {
     
     fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`)
       .then(res => {
-        if (res.status !== 200) {
+        if (!inputValue || res.status !== 200) {
           this.setState({
             error: true
           });
@@ -45,10 +42,12 @@ class PokemonSearch extends Component<User, SearchState> {
         res.json().then(data => {
           this.setState({
             error: false,
-            name: data.name,
-            numberOfAbilities: data.abilities.length,
-            baseExperience: data.base_experience,
-            imgUrl: data.sprites.front_default
+            pokemon: {
+              name: data.name,
+              numberOfAbilities: data.abilities.length,
+              baseExperience: data.base_experience,
+              imgUrl: data.sprites.front_default
+            }
           })
         })
       })
@@ -59,17 +58,17 @@ class PokemonSearch extends Component<User, SearchState> {
 
   render() {
     const { userName, numberOfPokemons } = this.props;
-    const { error, name, numberOfAbilities, baseExperience, imgUrl } = this.state;
+    const { error, pokemon } = this.state;
 
     let resultMarkup;
 
     if (error) {
       resultMarkup = <p>Pokemon not found, try again.</p>;
-    } else {
+    } else if(pokemon){
       resultMarkup = (
         <div>
-          <Image src={imgUrl} alt={`Picture of ${name}`} />
-          <p>{name} has {numberOfAbilities} abilities and {baseExperience} base experience points.</p>
+          <Image src={pokemon.imgUrl} alt={`Picture of ${pokemon.name}`} />
+          <p>{pokemon.name} has {pokemon.numberOfAbilities} abilities and {pokemon.baseExperience} base experience points.</p>
         </div>
       )
     }
@@ -79,6 +78,7 @@ class PokemonSearch extends Component<User, SearchState> {
         <p>User {userName} {numberOfPokemons ? <span>has {numberOfPokemons} pokemons</span> : <span>has no Pokemons</span>}.</p>
         <input type="text" ref={this.pokemonRef} placeholder="Pokemon name..."/>
         <Button onClick={this.onSearchClick}>Search</Button>
+        {resultMarkup}
       </div>
     )
   }
