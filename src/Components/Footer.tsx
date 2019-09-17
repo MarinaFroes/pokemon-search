@@ -10,12 +10,15 @@ const FooterContainer = styled.footer`
   width: 100%;
   color: #000;
   padding-bottom: 2rem;
+  position: fixed;
+  bottom: 0;
 `;
 
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 `;
 
 const Icon = styled.a`
