@@ -3,6 +3,11 @@ import User from '../interfaces/User.interface';
 import SearchState from '../interfaces/SearchState.interface';
 import styled from 'styled-components';
 
+const Main = styled.main`
+  text-align: center;
+  margin-top: 1rem;
+`;
+
 const Button = styled.button`
   border: 1px solid blue;
   border-radius: 3px;
@@ -13,6 +18,10 @@ const Button = styled.button`
 const Image = styled.img`
   margin-top: 20px;
   margin-bottom: 10px;
+`;
+
+const Input = styled.input`
+  margin: 1rem;
 `;
 
 class PokemonSearch extends Component<User, SearchState> {
@@ -74,12 +83,12 @@ class PokemonSearch extends Component<User, SearchState> {
     }
 
     return (
-      <div>
+      <Main>
         <p>User {userName} {numberOfPokemons ? <span>has {numberOfPokemons} pokemons</span> : <span>has no Pokemons</span>}.</p>
-        <input type="text" ref={this.pokemonRef} placeholder="Pokemon name..."/>
+        <Input type="text" ref={this.pokemonRef} placeholder="Pokemon name..."/>
         <Button onClick={this.onSearchClick}>Search</Button>
         {resultMarkup}
-      </div>
+      </Main>
     )
   }
 }
