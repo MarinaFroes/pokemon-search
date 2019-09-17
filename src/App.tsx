@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <PokemonSearch name="Marina" numberOfPokemons={5} />
+        <PokemonSearch userName="Marina" numberOfPokemons={5} />
         <Footer />
       </div>
     )
